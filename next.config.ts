@@ -1,8 +1,10 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
   reactCompiler: true,
+  images: {
+    unoptimized: true, // allows local /uploads and /img paths with spaces
+  },
 };
 
 export default nextConfig;

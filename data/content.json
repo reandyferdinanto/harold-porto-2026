@@ -1,0 +1,60 @@
+{
+  "siteConfig": {
+    "name": "Herklots Harold",
+    "title": "Portfolio",
+    "tagline": "Graphic Designer | 3D Artist | Video Editor | Videographer",
+    "email": "haroldsdesigns@gmail.com",
+    "phone": "(+62) 082166281480",
+    "address": "Jl. Raya Ujung Aspal, Jatisampurna, Jatiranggon, Bekasi 17432",
+    "logo": "/img/logo harolds designs.png",
+    "socials": {
+      "instagram": "https://www.instagram.com/herklotsharold/",
+      "linkedin": "https://www.linkedin.com/in/carbonite/",
+      "youtube": "https://www.youtube.com/channel/UCGMiR5bRGlTGUqf1_8bhTlQ",
+      "whatsapp": "082166281480"
+    }
+  },
+  "aboutData": {
+    "portrait": "/img/IMG_3683.JPG",
+    "bio": [
+      "Graphic Designer with 2 years of experience in the industry, my work has spanned to 3D Artist, Video Editing, and Videography.",
+      "My passion is to make things better efficiently and as fast as possible with little mistakes."
+    ],
+    "birthdate": "19th of August 2002, Jakarta",
+    "highlights": ["3D Artist", "Video Editing", "Videography"]
+  },
+  "experienceData": [
+    { "year": "2022", "items": ["Deputy Coordinator Documentation — Plaza Desain Emotia", "Head Documentation — Jakarta Town Festival"] },
+    { "year": "2021–2022", "items": ["Regional Head UKM — Bersama Dalam Musik Kemanggisan"] },
+    { "year": "2021", "items": ["Head Documentation — Plaza Desain Fantasme"] },
+    { "year": "2019", "items": ["Head Documentation — Cravier 2019"] }
+  ],
+  "educationData": [
+    { "year": "2020–Present", "items": ["BINUS University — Visual Communication Design, New Media"] },
+    { "year": "2017–2020", "items": ["SMA Labschool Cibubur"] }
+  ],
+  "skillsData": [
+    { "name": "Blender", "percentage": 90 },
+    { "name": "Adobe Photoshop", "percentage": 75 },
+    { "name": "Adobe Illustrator", "percentage": 75 },
+    { "name": "Adobe Premiere Pro", "percentage": 80 },
+    { "name": "Adobe After Effects", "percentage": 85 }
+  ],
+  "portfolioItems": [
+    { "id": "1", "category": "3D Art", "title": "ALONE", "image": "/img/288357028_588472615919635_3947485144407928277_n.jpg", "href": "/img/288357028_588472615919635_3947485144407928277_n.jpg", "timeSpent": "45 Minutes", "description": "A lonesome robot looking for signs of life on another planet after Earth met its death." },
+    { "id": "2", "category": "3D Art", "title": "WEALTH DON'T MATTER HERE", "image": "/img/WEALTH DONT MATTER HERE.png", "href": "/img/WEALTH DONT MATTER HERE.png", "timeSpent": "1 Hour", "description": "An Assignment with the theme of wealth where no matter what your status is, we all live and die in the same land and dirt." },
+    { "id": "3", "category": "3D Art", "title": "WISH IT WASN'T OVER", "image": "/img/help.png", "href": "/img/help.png", "timeSpent": "1 Hour", "description": "A skeleton that can't accept the reality that he still hasn't completed all his dreams." },
+    { "id": "4", "category": "3D Art", "title": "MY BEAUTIFUL FLOWER", "image": "/img/my beautiful flower.png", "href": "/img/my beautiful flower.png", "timeSpent": "30 Minutes", "description": "A personal project representing the beautiful side of nature, a study on Armature rig." },
+    { "id": "5", "category": "3D Art", "title": "SUNSHINE IN THE PALM OF MY HANDS", "image": "/img/herol ganteng.png", "href": "/img/herol ganteng.png", "timeSpent": "2 Days", "description": "An early concept on the topic of nature before deciding to make the Ineke Hans Recycleable Chair as the main topic." },
+    { "id": "6", "category": "3D Art", "title": "TO SEEK LIFE", "image": "/img/vmp 3.png", "href": "/img/vmp 3.png", "timeSpent": "3 Hours", "description": "Showing how greediness and no respect ends in a fight to the death for a life that isn't entirely yours." },
+    { "id": "7", "category": "Videos", "title": "PLAZA DESAIN EMOTIA TEASER TRAILER", "image": "/img/plazdes emotia.gif", "href": "/img/Plaza Desain emotia.mp4", "timeSpent": "2 Weeks", "description": "Teaser trailer for Plaza Desain Emotia using After Effects and Original Music made using Ableton Live Suite 10." },
+    { "id": "8", "category": "Videos", "title": "RAGHSAVADA ZAVTAVADHRA FAREWELL", "image": "/img/RZ3 tahun.gif", "href": "https://drive.google.com/file/d/10BTwnE3kLNvtva5yiQGjiF4cRxb9vQNN/view?usp=sharing", "timeSpent": "3 Years (Progressive Editing)", "description": "A Farewell video for my High School SMA Labschool Cibubur Class, Rahgsavada Zavtavadhra." },
+    { "id": "9", "category": "Videos", "title": "NIGHT NIGHT", "image": "/img/motor1gif.gif", "href": "/img/motor 1.mp4", "timeSpent": "1 Day", "description": "A personal project made for fun, study of using 24fps Film Format. Made using Vegas Pro 18." },
+    { "id": "10", "category": "Videos", "title": "SUMMER FUN RIDES", "image": "/img/motor2gif.gif", "href": "/img/motor 2.mp4", "timeSpent": "1 Day", "description": "Compilation of Team Wannabe bikes made using RareVision VHS and edited using Filmora." },
+    { "id": "11", "category": "Animations", "title": "JAKARTA TOWN FESTIVAL TEASER ANIMATION", "image": "/img/jtf.gif", "href": "/img/Jtf Teaser Fix-1.mp4", "timeSpent": "5 Hours", "description": "Teaser trailer for Jakarta Town Festival using Blender and After Effects." },
+    { "id": "12", "category": "Animations", "title": "007 NO TIME TO DIE OPENING TITLE REDESIGN", "image": "/img/bond 2.gif", "href": "/img/no time to die compressed.mp4", "timeSpent": "2 Weeks", "description": "Opening Title Redesign of James Bond No Time To Die, made using After Effects and Blender." },
+    { "id": "13", "category": "Animations", "title": "BIRTHDAY LETTER ANIMATION", "image": "/img/ultah nanagif.gif", "href": "/img/ultah nana.mp4", "timeSpent": "6 Hours", "description": "An Animation made personally for a friend's Birthday using Blender." },
+    { "id": "14", "category": "Animations", "title": "INEKE HANS RECYCLEABLE CHAIR VIDEO EXPLAINER", "image": "/img/inekehansgif.gif", "href": "/img/inekehans.mp4", "timeSpent": "1 Month", "description": "A Video Explainer using Blender on recycleable chair benefits, with original music from Ableton Live Suite 10." }
+  ]
+}
+

@@ -1,36 +1,78 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Harold's Portfolio - Next.js Version
 
-## Getting Started
+A modern Next.js conversion of Harold's portfolio website, featuring a beautiful design showcase for a graphic designer, 3D artist, video editor, and videographer.
 
-First, run the development server:
+## 🚀 Features
+
+- **Modern React Components**: Fully componentized using React 18 with TypeScript
+- **Server-Side Rendering**: Leverages Next.js App Router for optimal performance
+- **Responsive Design**: Mobile-first approach with Tailwind CSS
+- **Portfolio Showcase**: Interactive portfolio grid with filtering capabilities
+- **Smooth Scrolling**: Native HTML smooth scroll behavior
+- **Contact Form**: Functional contact form component
+- **SEO Optimized**: Proper meta tags and structured data
+- **Font Awesome Icons**: Integrated icon system
+- **Linear Icons**: Additional icon library support
+
+## 📋 Project Structure
+
+```
+harold-portfolio-nextjs/
+├── app/
+│   ├── layout.tsx           # Root layout with metadata
+│   ├── page.tsx             # Home page
+│   └── globals.css          # Global styles
+├── components/
+│   ├── Navbar.tsx           # Navigation bar with mobile support
+│   ├── Hero.tsx             # Hero section with intro
+│   ├── About.tsx            # About section
+│   ├── Experience.tsx       # Experience & Education
+│   ├── Skills.tsx           # Skills with progress bars
+│   ├── Portfolio.tsx        # Portfolio grid with filtering
+│   ├── PortfolioModal.tsx  # Modal for portfolio items
+│   ├── Contact.tsx          # Contact form
+│   └── Footer.tsx           # Footer with social links
+├── public/
+│   └── img/                 # Portfolio images and assets
+└── package.json             # Dependencies
+```
+
+## 🛠️ Installation
+
+1. Navigate to the project:
+```bash
+cd harold-portfolio-nextjs
+```
+
+2. Install dependencies:
+```bash
+npm install
+```
+
+## 🚀 Development
+
+Start the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🏗️ Production Build
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run build
+npm start
+```
 
-## Learn More
+## 📧 Contact Information
 
-To learn more about Next.js, take a look at the following resources:
+- **Email**: haroldsdesigns@gmail.com
+- **Phone**: (+62) 082166281480
+- **Instagram**: @herklotsharold
+- **LinkedIn**: linkedin.com/in/carbonite/
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 📄 License
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Creative Tim License - See LICENSE.md for details
