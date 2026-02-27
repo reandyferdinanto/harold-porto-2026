@@ -102,36 +102,35 @@ export default function DashboardPage() {
   return (
     <div className="min-h-screen">
       {/* ── Top bar ── */}
-      <header className="sticky top-0 z-20 bg-black/80 backdrop-blur-xl border-b border-white/5 px-6 py-4 flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <span className="w-2.5 h-2.5 rounded-full bg-orange-500 shadow-[0_0_8px_rgba(249,115,22,0.8)]" />
-          <span className="text-white font-bold">Admin Dashboard</span>
+      <header className="sticky top-0 z-20 bg-black/80 backdrop-blur-xl border-b border-white/5 px-3 sm:px-6 py-3 sm:py-4 flex items-center justify-between gap-2">
+        <div className="flex items-center gap-2 sm:gap-3 min-w-0">
+          <span className="w-2.5 h-2.5 rounded-full bg-orange-500 shadow-[0_0_8px_rgba(249,115,22,0.8)] flex-shrink-0" />
+          <span className="text-white font-bold text-sm sm:text-base truncate">Admin</span>
           <span className="badge-silver hidden sm:inline">Harold Portfolio</span>
         </div>
-        <div className="flex items-center gap-3">
-          <a href="/" target="_blank" className="btn-outline text-xs py-2 px-4">
-            <i className="fas fa-external-link-alt" /> View Site
+        <div className="flex items-center gap-2">
+          <a href="/" target="_blank" className="btn-outline text-xs py-1.5 px-3 sm:py-2 sm:px-4">
+            <i className="fas fa-external-link-alt" />
+            <span className="hidden sm:inline ml-1">View Site</span>
           </a>
-          <button onClick={logout} className="text-gray-500 hover:text-red-400 text-sm transition-colors px-2">
-            <i className="fas fa-sign-out-alt" /> Logout
+          <button onClick={logout} className="text-gray-500 hover:text-red-400 text-sm transition-colors p-1.5 sm:px-2">
+            <i className="fas fa-sign-out-alt" />
+            <span className="hidden sm:inline ml-1">Logout</span>
           </button>
         </div>
       </header>
 
-      <div className="flex min-h-[calc(100vh-64px)]">
-        {/* ── Sidebar ── */}
-        <aside className="w-56 flex-shrink-0 border-r border-white/5 bg-black/30 backdrop-blur py-6 px-3 hidden md:block">
+      <div className="flex min-h-[calc(100vh-56px)] sm:min-h-[calc(100vh-64px)]">
+        {/* ── Sidebar (desktop only) ── */}
+        <aside className="w-52 flex-shrink-0 border-r border-white/5 bg-black/30 backdrop-blur py-6 px-3 hidden md:block">
           <nav className="space-y-1">
             {TABS.map(t => (
-              <button
-                key={t.id}
-                onClick={() => setTab(t.id)}
+              <button key={t.id} onClick={() => setTab(t.id)}
                 className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all ${
                   tab === t.id
                     ? 'bg-orange-500/15 text-orange-400 border border-orange-500/30'
                     : 'text-gray-500 hover:text-gray-300 hover:bg-white/5'
-                }`}
-              >
+                }`}>
                 <i className={`${t.icon} w-4 text-center`} />
                 {t.label}
               </button>
@@ -139,21 +138,21 @@ export default function DashboardPage() {
           </nav>
         </aside>
 
-        {/* ── Mobile tab row ── */}
-        <div className="md:hidden fixed bottom-0 left-0 right-0 z-20 bg-black/90 backdrop-blur border-t border-white/5 flex">
+        {/* ── Mobile bottom tab bar ── */}
+        <div className="md:hidden fixed bottom-0 left-0 right-0 z-20 bg-black/95 backdrop-blur-xl border-t border-white/5 flex safe-area-pb">
           {TABS.map(t => (
             <button key={t.id} onClick={() => setTab(t.id)}
-              className={`flex-1 py-3 flex flex-col items-center gap-0.5 text-xs transition-colors ${
-                tab === t.id ? 'text-orange-400' : 'text-gray-600'
+              className={`flex-1 py-2.5 flex flex-col items-center gap-0.5 transition-colors ${
+                tab === t.id ? 'text-orange-400' : 'text-gray-600 active:text-gray-300'
               }`}>
-              <i className={t.icon} />
-              <span>{t.label}</span>
+              <i className={`${t.icon} text-base`} />
+              <span className="text-[10px] leading-none mt-0.5">{t.label}</span>
             </button>
           ))}
         </div>
 
         {/* ── Main content ── */}
-        <main className="flex-1 p-4 md:p-8 overflow-y-auto pb-24 md:pb-8">
+        <main className="flex-1 min-w-0 p-3 sm:p-6 md:p-8 overflow-y-auto pb-24 md:pb-8">
 
           {/* ══ SITE INFO ══ */}
           {tab === 'site' && (
@@ -591,8 +590,8 @@ function PortfolioItemEditor({
 
       {/* Expanded fields */}
       {open && (
-        <div className="px-5 pb-5 border-t border-white/5 pt-4 space-y-4">
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div className="px-4 sm:px-5 pb-4 sm:pb-5 border-t border-white/5 pt-4 space-y-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <Field label="Title">
               <Input value={item.title} onChange={v => onChange({ ...item, title: v })} placeholder="Work title" />
             </Field>

@@ -91,18 +91,18 @@ export default function Skills({ skillsData }: { skillsData: Skill[] }) {
           <h2 className="section-title">Skills</h2>
         </div>
 
-        <div className="flex flex-col lg:flex-row gap-10 items-start">
+        <div className="flex flex-col lg:flex-row gap-6 sm:gap-10 items-start">
 
           {/* ── Left panel: icon grid card ── */}
           <div className="w-full lg:w-72 flex-shrink-0">
-            <div className="glass rounded-2xl p-6 orange-border sticky top-24">
+            <div className="glass rounded-2xl p-4 sm:p-6 orange-border lg:sticky lg:top-24">
               <p className="text-xs text-gray-500 uppercase tracking-widest mb-5 flex items-center gap-2">
                 <span className="w-4 h-px bg-orange-500/50 inline-block" />
                 Tools &amp; Software
               </p>
 
               {/* Icon grid */}
-              <div className="grid grid-cols-3 gap-4">
+              <div className="grid grid-cols-4 sm:grid-cols-3 gap-2 sm:gap-4">
                 {skillsData.map((skill) => {
                   const color = getColor(skill.name);
                   return (
@@ -110,7 +110,7 @@ export default function Skills({ skillsData }: { skillsData: Skill[] }) {
                       className="flex flex-col items-center gap-2 group cursor-default select-none"
                       title={skill.name}>
                       <div
-                        className="w-16 h-16 rounded-2xl flex items-center justify-center p-3 transition-all duration-300 group-hover:scale-110"
+                      className="w-12 h-12 sm:w-16 sm:h-16 rounded-xl sm:rounded-2xl flex items-center justify-center p-2 sm:p-3 transition-all duration-300 group-hover:scale-110"
                         style={{
                           background: `${color}15`,
                           border: `1.5px solid ${color}30`,

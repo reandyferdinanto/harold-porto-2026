@@ -16,6 +16,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        {/* Viewport with safe-area support for notched phones */}
+        <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
         <link rel="stylesheet" href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css" />
         <link
           rel="stylesheet"
