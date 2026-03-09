@@ -1,45 +1,47 @@
-import { experienceData, educationData } from '@/data/portfolio';
+'use client';
 
-interface TimelineEntry {
-  year: string;
-  items: string[];
-}
+import dynamic from 'next/dynamic';
+import ScrollReveal from './ScrollReveal';
+import TiltCard from './TiltCard';
 
-function Timeline({
-  title,
-  icon,
-  data,
-}: {
-  title: string;
-  icon: string;
-  data: TimelineEntry[];
-}) {
+const SectionParticles = dynamic(() => import('./SectionParticles'), { ssr: false });
+
+interface TimelineEntry { year: string; items: string[] }
+
+function Timeline({ title, icon, data, delay }: { title: string; icon: string; data: TimelineEntry[]; delay: number }) {
   return (
-    <div className="glass rounded-2xl p-5 sm:p-8">
-      <div className="flex items-center gap-3 mb-6">
-        <div className="w-9 h-9 sm:w-10 sm:h-10 glass-orange rounded-xl flex items-center justify-center flex-shrink-0">
-          <i className={`${icon} text-orange-400 text-sm`} />
-        </div>
-        <h3 className="text-lg sm:text-xl font-bold text-white">{title}</h3>
-      </div>
-      <div className="space-y-5 relative pl-5 before:absolute before:left-[7px] before:top-2 before:bottom-2 before:w-px before:bg-orange-500/20">
-        {data.map((entry, i) => (
-          <div key={i} className="relative">
-            <div className="timeline-dot absolute -left-5 top-1.5" />
-            <span className="badge-orange mb-1.5 inline-block text-xs">
-              {entry.year}
-            </span>
-            <ul className="space-y-1">
-              {entry.items.map((item, j) => (
-                <li key={j} className="text-gray-400 text-sm leading-relaxed">
-                  {item}
-                </li>
-              ))}
-            </ul>
+    <ScrollReveal direction="up" delay={delay}>
+      <TiltCard className="timeline-card-3d" maxTilt={6} glareOpacity={0.08}>
+        <div className="timeline-card-inner">
+          <div className="flex items-center gap-3 mb-6">
+            <div className="timeline-icon-3d">
+              <i className={`${icon} text-orange-400 text-sm`} />
+            </div>
+            <h3 className="text-lg sm:text-xl font-bold text-white">{title}</h3>
           </div>
-        ))}
-      </div>
-    </div>
+          <div className="relative pl-6">
+            {/* Animated timeline line */}
+            <div className="timeline-line-3d" />
+            {data.map((entry, i) => (
+              <ScrollReveal key={i} direction="left" delay={delay + i * 150} className="mb-5 last:mb-0">
+                <div className="relative">
+                  <div className="timeline-dot-3d" />
+                  <span className="timeline-year-badge">{entry.year}</span>
+                  <ul className="space-y-1 mt-1.5">
+                    {entry.items.map((item, j) => (
+                      <li key={j} className="text-gray-400 text-sm leading-relaxed flex items-start gap-2">
+                        <span className="text-orange-500/40 mt-1.5 text-[6px]">●</span>
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </ScrollReveal>
+            ))}
+          </div>
+        </div>
+      </TiltCard>
+    </ScrollReveal>
   );
 }
 
@@ -52,23 +54,24 @@ export default function Experience({
   skillsData: unknown[];
 }) {
   return (
-    <section id="experience" className="section-pad section-bg-alt">
-      <div className="container-max mx-auto px-4 sm:px-6">
-        <div className="text-center mb-10 sm:mb-14">
-          <div className="section-label">My Journey</div>
-          <h2 className="section-title">Experience &amp; Education</h2>
-        </div>
+    <section id="experience" className="section-3d section-pad">
+      <SectionParticles variant="cool" />
+      <div className="section-3d-content container-max mx-auto px-4 sm:px-6">
+        <ScrollReveal direction="up">
+          <div className="text-center mb-10 sm:mb-14">
+            <div className="section-label-3d justify-center">
+              <span className="section-label-line" />
+              <span>My Journey</span>
+              <span className="section-label-line" />
+            </div>
+            <h2 className="section-title-3d">
+              Experience & <span className="gradient-text-gold">Education</span>
+            </h2>
+          </div>
+        </ScrollReveal>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6">
-          <Timeline
-            title="Experience"
-            icon="fas fa-briefcase"
-            data={experienceData}
-          />
-          <Timeline
-            title="Education"
-            icon="fas fa-graduation-cap"
-            data={educationData}
-          />
+          <Timeline title="Experience" icon="fas fa-briefcase" data={experienceData} delay={200} />
+          <Timeline title="Education" icon="fas fa-graduation-cap" data={educationData} delay={400} />
         </div>
       </div>
     </section>

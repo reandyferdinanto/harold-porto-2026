@@ -1,9 +1,14 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
+import dynamic from 'next/dynamic';
+import ScrollReveal from './ScrollReveal';
+import TiltCard from './TiltCard';
+
+const SectionParticles = dynamic(() => import('./SectionParticles'), { ssr: false });
 
 interface Skill { name: string; percentage: number }
 
-// ── Real SVG logos ─────────────────────────────────────────────────────────
+// ── Real SVG logos ──
 const SKILL_ICONS: Record<string, React.ReactElement> = {
   'Blender': (
     <svg viewBox="0 0 128 128" className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
@@ -68,6 +73,54 @@ function getColor(name: string) {
   return SKILL_COLORS[name] ?? '#f97316';
 }
 
+/* ── Circular Progress Ring ── */
+function SkillRing({ skill, animated, delay }: { skill: Skill; animated: boolean; delay: number }) {
+  const color = getColor(skill.name);
+  const radius = 42;
+  const circumference = 2 * Math.PI * radius;
+  const offset = animated ? circumference * (1 - skill.percentage / 100) : circumference;
+
+  return (
+    <ScrollReveal direction="scale" delay={delay}>
+      <TiltCard className="skill-ring-card" maxTilt={15} glareOpacity={0.1}>
+        <div className="skill-ring-inner">
+          {/* SVG Ring */}
+          <div className="skill-ring-svg-wrap">
+            <svg viewBox="0 0 100 100" className="skill-ring-svg">
+              {/* Background ring */}
+              <circle cx="50" cy="50" r={radius} fill="none" stroke="rgba(255,255,255,0.05)" strokeWidth="4" />
+              {/* Animated ring */}
+              <circle
+                cx="50" cy="50" r={radius} fill="none"
+                stroke={color} strokeWidth="4" strokeLinecap="round"
+                strokeDasharray={circumference}
+                strokeDashoffset={offset}
+                className="skill-ring-progress"
+                style={{
+                  transition: `stroke-dashoffset 1.5s cubic-bezier(0.4, 0, 0.2, 1) ${delay}ms`,
+                  filter: `drop-shadow(0 0 6px ${color}80)`,
+                  transformOrigin: 'center',
+                  transform: 'rotate(-90deg)',
+                }}
+              />
+            </svg>
+            {/* Icon in center */}
+            <div className="skill-ring-icon">
+              {getIcon(skill.name)}
+            </div>
+          </div>
+
+          {/* Name & % */}
+          <h4 className="skill-ring-name">{skill.name.replace('Adobe ', '')}</h4>
+          <div className="skill-ring-percent" style={{ color }}>
+            {animated ? skill.percentage : 0}%
+          </div>
+        </div>
+      </TiltCard>
+    </ScrollReveal>
+  );
+}
+
 export default function Skills({ skillsData }: { skillsData: Skill[] }) {
   const [animated, setAnimated] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
@@ -82,121 +135,52 @@ export default function Skills({ skillsData }: { skillsData: Skill[] }) {
   }, []);
 
   return (
-    <section id="skills" className="section-pad section-bg">
-      <div className="container-max mx-auto">
+    <section id="skills" className="section-3d section-pad">
+      <SectionParticles variant="mixed" />
+      <div className="section-3d-content container-max mx-auto" ref={ref}>
+        <ScrollReveal direction="up">
+          <div className="text-center mb-14">
+            <div className="section-label-3d justify-center">
+              <span className="section-label-line" />
+              <span>What I can do</span>
+              <span className="section-label-line" />
+            </div>
+            <h2 className="section-title-3d">
+              My <span className="gradient-text-gold">Skills</span>
+            </h2>
+            <p className="text-gray-500 mt-3 max-w-lg mx-auto text-sm">
+              Proficiency in industry-leading creative tools and software
+            </p>
+          </div>
+        </ScrollReveal>
 
-        {/* Header */}
-        <div className="text-center mb-14">
-          <div className="section-label">What I can do</div>
-          <h2 className="section-title">Skills</h2>
+        {/* Skill rings grid */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-6">
+          {skillsData.map((skill, i) => (
+            <SkillRing key={skill.name} skill={skill} animated={animated} delay={i * 150} />
+          ))}
         </div>
 
-        <div className="flex flex-col lg:flex-row gap-6 sm:gap-10 items-start">
-
-          {/* ── Left panel: icon grid card ── */}
-          <div className="w-full lg:w-72 flex-shrink-0">
-            <div className="glass rounded-2xl p-4 sm:p-6 orange-border lg:sticky lg:top-24">
-              <p className="text-xs text-gray-500 uppercase tracking-widest mb-5 flex items-center gap-2">
-                <span className="w-4 h-px bg-orange-500/50 inline-block" />
-                Tools &amp; Software
-              </p>
-
-              {/* Icon grid */}
-              <div className="grid grid-cols-4 sm:grid-cols-3 gap-2 sm:gap-4">
-                {skillsData.map((skill) => {
-                  const color = getColor(skill.name);
-                  return (
-                    <div key={skill.name}
-                      className="flex flex-col items-center gap-2 group cursor-default select-none"
-                      title={skill.name}>
-                      <div
-                      className="w-12 h-12 sm:w-16 sm:h-16 rounded-xl sm:rounded-2xl flex items-center justify-center p-2 sm:p-3 transition-all duration-300 group-hover:scale-110"
-                        style={{
-                          background: `${color}15`,
-                          border: `1.5px solid ${color}30`,
-                        }}
-                        onMouseEnter={e => {
-                          (e.currentTarget as HTMLElement).style.boxShadow = `0 0 20px ${color}55`;
-                          (e.currentTarget as HTMLElement).style.borderColor = `${color}80`;
-                        }}
-                        onMouseLeave={e => {
-                          (e.currentTarget as HTMLElement).style.boxShadow = 'none';
-                          (e.currentTarget as HTMLElement).style.borderColor = `${color}30`;
-                        }}
-                      >
-                        {getIcon(skill.name)}
-                      </div>
-                      <span className="text-gray-500 text-xs text-center leading-tight group-hover:text-gray-200 transition-colors">
-                        {skill.name.replace('Adobe ', '')}
-                      </span>
-                    </div>
-                  );
-                })}
-              </div>
-
-              {/* Proficiency legend */}
-              <div className="mt-7 pt-5 border-t border-white/5 space-y-2.5">
-                {([
-                  { label: 'Expert',       color: '#f97316', test: (p: number) => p >= 85 },
-                  { label: 'Advanced',     color: '#9ca3af', test: (p: number) => p >= 70 && p < 85 },
-                  { label: 'Intermediate', color: '#4b5563', test: (p: number) => p < 70 },
-                ] as { label: string; color: string; test: (p: number) => boolean }[]).map(({ label, color, test }) => {
-                  const count = skillsData.filter(s => test(s.percentage)).length;
-                  if (!count) return null;
-                  return (
-                    <div key={label} className="flex items-center justify-between">
-                      <div className="flex items-center gap-2">
-                        <span className="w-2 h-2 rounded-full" style={{ background: color }} />
-                        <span className="text-gray-500 text-xs">{label}</span>
-                      </div>
-                      <span className="text-gray-300 text-xs font-bold">{count} skill{count > 1 ? 's' : ''}</span>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          </div>
-
-          {/* ── Right panel: animated bars ── */}
-          <div ref={ref} className="flex-1 w-full space-y-3">
-            {skillsData.map((skill, i) => {
-              const color = getColor(skill.name);
+        {/* Proficiency legend */}
+        <ScrollReveal direction="up" delay={800}>
+          <div className="flex flex-wrap justify-center gap-6 mt-10">
+            {([
+              { label: 'Expert', color: '#f97316', min: 85 },
+              { label: 'Advanced', color: '#fbbf24', min: 70 },
+              { label: 'Intermediate', color: '#6b7280', min: 0 },
+            ] as const).map(({ label, color, min }) => {
+              const count = skillsData.filter(s => s.percentage >= min && (min === 0 ? s.percentage < 70 : min === 70 ? s.percentage < 85 : true)).length;
+              if (!count) return null;
               return (
-                <div key={skill.name}
-                  className="glass rounded-2xl px-5 py-4 transition-all duration-200 hover:border-white/15"
-                  style={{ borderColor: `${color}20` }}>
-                  {/* Row: icon + name + % */}
-                  <div className="flex items-center gap-3 mb-3">
-                    <div
-                      className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0 p-2"
-                      style={{ background: `${color}15`, border: `1.5px solid ${color}35` }}
-                    >
-                      {getIcon(skill.name)}
-                    </div>
-                    <span className="text-white font-semibold text-sm flex-1">{skill.name}</span>
-                    <span className="font-black text-sm tabular-nums" style={{ color }}>
-                      {skill.percentage}%
-                    </span>
-                  </div>
-
-                  {/* Progress bar */}
-                  <div className="w-full rounded-full h-2 overflow-hidden" style={{ background: 'rgba(255,255,255,0.05)' }}>
-                    <div
-                      className="h-2 rounded-full"
-                      style={{
-                        width: animated ? `${skill.percentage}%` : '0%',
-                        transition: `width 1.3s cubic-bezier(0.4,0,0.2,1) ${i * 130}ms`,
-                        background: `linear-gradient(90deg, ${color}dd, ${color}88)`,
-                        boxShadow: animated ? `0 0 12px ${color}60` : 'none',
-                      }}
-                    />
-                  </div>
+                <div key={label} className="flex items-center gap-2">
+                  <span className="w-2.5 h-2.5 rounded-full" style={{ background: color, boxShadow: `0 0 8px ${color}60` }} />
+                  <span className="text-gray-500 text-xs">{label}</span>
+                  <span className="text-gray-300 text-xs font-bold">({count})</span>
                 </div>
               );
             })}
           </div>
-
-        </div>
+        </ScrollReveal>
       </div>
     </section>
   );
