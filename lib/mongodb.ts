@@ -1,3 +1,7 @@
+import dns from 'dns';
+// Use public DNS to resolve MongoDB Atlas SRV records reliably
+dns.setServers(['8.8.8.8', '8.8.4.4', '1.1.1.1']);
+
 import mongoose from 'mongoose';
 
 const MONGODB_URI = process.env.MONGODB_URI;
@@ -24,14 +28,14 @@ async function dbConnect() {
   if (!cached.promise) {
     const opts = {
       bufferCommands: false,
-      serverSelectionTimeoutMS: 3000, // Reduced from 30s to 3s for faster fallback
+      serverSelectionTimeoutMS: 10000, // 10s timeout for Atlas cloud connections
     };
 
     cached.promise = mongoose.connect(MONGODB_URI as string, opts).then((mongoose) => {
       return mongoose;
     });
   }
-  
+
   try {
     cached.conn = await cached.promise;
   } catch (e) {
