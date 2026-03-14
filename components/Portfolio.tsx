@@ -19,9 +19,9 @@ function Modal({ item, onClose }: { item: PortfolioItem; onClose: () => void }) 
     <div className="modal-3d-overlay" onClick={onClose}>
       <div className="modal-3d-backdrop" />
       <div className="modal-3d-container" onClick={e => e.stopPropagation()}>
-        <button onClick={onClose} className="modal-3d-close">&times;</button>
+        <button suppressHydrationWarning onClick={onClose} className="modal-3d-close">&times;</button>
         <div className="relative w-full bg-black/50 flex-shrink-0" style={{ aspectRatio: '16/9' }}>
-          <Image src={item.image} alt={item.title} fill className="object-cover opacity-90" unoptimized />
+          <Image src={item.image || '/img/black%20bg-02.png'} alt={item.title} fill className="object-cover opacity-90" unoptimized />
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
         </div>
         <div className="p-4 sm:p-6 overflow-y-auto">
@@ -72,7 +72,7 @@ export default function Portfolio({ items }: { items: PortfolioItem[] }) {
           <ScrollReveal direction="up" delay={200}>
             <div className="flex gap-2 sm:gap-3 mb-8 overflow-x-auto pb-2 sm:justify-center scrollbar-none">
               {CATEGORIES.map(cat => (
-                <button key={cat} onClick={() => setActive(cat)}
+                <button suppressHydrationWarning key={cat} onClick={() => setActive(cat)}
                   className={`filter-btn-3d flex-shrink-0 ${active === cat ? 'filter-btn-3d-active' : ''}`}>
                   {cat === '3D Art' && <i className="fas fa-cube text-xs" />}
                   {cat === 'Animations' && <i className="fas fa-film text-xs" />}
@@ -91,7 +91,7 @@ export default function Portfolio({ items }: { items: PortfolioItem[] }) {
                 <TiltCard className="portfolio-card-3d" maxTilt={8} glareOpacity={0.1}>
                   <div className="portfolio-card-inner group" onClick={() => setSelected(item)}>
                     <div className="relative w-full bg-black/50 overflow-hidden" style={{ aspectRatio: '4/3' }}>
-                      <Image src={item.image} alt={item.title} fill
+                      <Image src={item.image || '/img/black%20bg-02.png'} alt={item.title} fill
                         sizes="(max-width:640px)100vw,(max-width:1024px)50vw,33vw"
                         className="object-cover group-hover:scale-110 transition-transform duration-700" unoptimized />
                       {/* Hover overlay */}

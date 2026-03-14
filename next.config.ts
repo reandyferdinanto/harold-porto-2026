@@ -5,6 +5,11 @@ const nextConfig: NextConfig = {
   images: {
     unoptimized: true, // allows local /uploads and /img paths with spaces
   },
+  experimental: {
+    serverActions: {
+      bodySizeLimit: '50mb',
+    },
+  },
 };
 
 export default nextConfig;

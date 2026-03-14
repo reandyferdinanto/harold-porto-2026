@@ -9,6 +9,13 @@ const SectionParticles = dynamic(() => import('./SectionParticles'), { ssr: fals
 interface TimelineEntry { year: string; items: string[] }
 
 function Timeline({ title, icon, data, delay }: { title: string; icon: string; data: TimelineEntry[]; delay: number }) {
+  // Sort data descending by extracted year (newest first)
+  const sortedData = [...data].sort((a, b) => {
+    const yearA = parseInt(a.year.match(/\d{4}/)?.[0] || '0', 10);
+    const yearB = parseInt(b.year.match(/\d{4}/)?.[0] || '0', 10);
+    return yearB - yearA;
+  });
+
   return (
     <ScrollReveal direction="up" delay={delay}>
       <TiltCard className="timeline-card-3d" maxTilt={6} glareOpacity={0.08}>
@@ -22,7 +29,7 @@ function Timeline({ title, icon, data, delay }: { title: string; icon: string; d
           <div className="relative pl-6">
             {/* Animated timeline line */}
             <div className="timeline-line-3d" />
-            {data.map((entry, i) => (
+            {sortedData.map((entry, i) => (
               <ScrollReveal key={i} direction="left" delay={delay + i * 150} className="mb-5 last:mb-0">
                 <div className="relative">
                   <div className="timeline-dot-3d" />

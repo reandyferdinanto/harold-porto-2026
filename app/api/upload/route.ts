@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { isAuthenticated } from '@/lib/auth';
-import { writeFile } from 'fs/promises';
+import { put } from '@vercel/blob';
 import path from 'path';
 
 export async function POST(req: NextRequest) {
@@ -14,16 +14,23 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'No file provided' }, { status: 400 });
   }
 
-  // Sanitize filename
-  const ext = path.extname(file.name);
-  const base = path.basename(file.name, ext).replace(/[^a-zA-Z0-9_-]/g, '_');
-  const filename = `${Date.now()}_${base}${ext}`;
-  const uploadDir = path.join(process.cwd(), 'public', 'uploads');
-  const filepath = path.join(uploadDir, filename);
+  try {
+    // Sanitize filename
+    const ext = path.extname(file.name);
+    const base = path.basename(file.name, ext).replace(/[^a-zA-Z0-9_-]/g, '_');
+    const filename = `${Date.now()}_${base}${ext}`;
 
-  const bytes = await file.arrayBuffer();
-  await writeFile(filepath, Buffer.from(bytes));
+    // Upload directly to Vercel Blob
+    const blob = await put(`uploads/${filename}`, file, {
+      access: 'public',
+    });
 
-  return NextResponse.json({ url: `/uploads/${filename}` });
+    return NextResponse.json({ url: blob.url });
+  } catch (error: any) {
+    console.error('Vercel Blob Upload Error:', error);
+    return NextResponse.json(
+      { error: error.message || 'Error occurred while uploading to Vercel Blob.' },
+      { status: 500 }
+    );
+  }
 }
-

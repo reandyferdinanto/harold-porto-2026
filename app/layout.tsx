@@ -39,7 +39,7 @@ export default function RootLayout({
             alt=""
             fill
             priority
-            quality={80}
+            quality={75}
             style={{ objectFit: 'cover', objectPosition: 'center', opacity: 0.55 }}
           />
           {/* Dark overlay so glass cards are always readable */}

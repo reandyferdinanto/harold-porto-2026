@@ -69,7 +69,7 @@ export default function Navbar({ data }: { data: SiteConfig }) {
       <aside className={`sidenav flex flex-col ${sideOpen ? 'open' : ''}`}>
         <div className="flex items-center justify-between px-5 py-4 border-b border-orange-500/20">
           <span className="text-orange-400 font-bold tracking-widest text-xs uppercase">Info</span>
-          <button onClick={() => setSideOpen(false)}
+          <button suppressHydrationWarning onClick={() => setSideOpen(false)}
             className="w-8 h-8 flex items-center justify-center text-gray-400 hover:text-orange-400 text-xl nav-close-btn">
             &times;
           </button>
@@ -134,7 +134,7 @@ export default function Navbar({ data }: { data: SiteConfig }) {
               </li>
             ))}
             <li>
-              <button onClick={() => setSideOpen(true)}
+              <button suppressHydrationWarning onClick={() => setSideOpen(true)}
                 className="nav-info-btn">
                 <i className="fas fa-ellipsis-v text-xs" />
               </button>
@@ -143,11 +143,11 @@ export default function Navbar({ data }: { data: SiteConfig }) {
 
           {/* Mobile */}
           <div className="md:hidden flex items-center gap-2">
-            <button onClick={() => setSideOpen(true)}
+            <button suppressHydrationWarning onClick={() => setSideOpen(true)}
               className="nav-mobile-btn">
               <i className="fas fa-info text-xs" />
             </button>
-            <button onClick={() => setMobileOpen(!mobileOpen)}
+            <button suppressHydrationWarning onClick={() => setMobileOpen(!mobileOpen)}
               className="nav-mobile-btn">
               <i className={`fas ${mobileOpen ? 'fa-times' : 'fa-bars'} text-sm`} />
             </button>
@@ -156,7 +156,7 @@ export default function Navbar({ data }: { data: SiteConfig }) {
 
         {/* Mobile dropdown */}
         {mobileOpen && (
-          <div className="md:hidden mx-3 mt-2 nav-mobile-dropdown">
+          <div className="md:hidden mx-3 mt-2 nav-mobile-dropdown" style={{ maxHeight: 'calc(100vh - 5rem)', overflowY: 'auto' }}>
             {navLinks.map(({ label, href, icon }) => (
               <a key={href} href={href} onClick={() => setMobileOpen(false)}
                 className={`nav-mobile-link ${activeSection === href.slice(1) ? 'nav-mobile-active' : ''}`}>
@@ -165,9 +165,49 @@ export default function Navbar({ data }: { data: SiteConfig }) {
                 {activeSection === href.slice(1) && <span className="nav-mobile-indicator" />}
               </a>
             ))}
+
+            {/* ── Contact Info ── */}
+            <div className="px-5 py-4 border-t border-white/5 space-y-3">
+              <p className="text-[10px] text-gray-500 uppercase tracking-widest font-semibold">Contact Info</p>
+              <div className="space-y-2">
+                <div className="flex items-start gap-2">
+                  <i className="fas fa-map-marker-alt text-orange-400/60 text-xs mt-0.5 w-4 text-center" />
+                  <p className="text-gray-400 text-xs leading-relaxed">{data.address}</p>
+                </div>
+                <div className="flex items-center gap-2">
+                  <i className="fas fa-phone-alt text-orange-400/60 text-xs w-4 text-center" />
+                  <p className="text-orange-400 text-xs font-semibold">{data.phone}</p>
+                </div>
+                <div className="flex items-center gap-2">
+                  <i className="fas fa-envelope text-orange-400/60 text-xs w-4 text-center" />
+                  <p className="text-gray-400 text-xs break-all">{data.email}</p>
+                </div>
+              </div>
+            </div>
+
+            {/* ── Social Links ── */}
             <div className="px-5 py-3 border-t border-white/5">
-              <a href="/admin" className="flex items-center gap-2 text-xs text-gray-600 hover:text-orange-400 transition-colors">
-                <i className="fas fa-lock" /> Admin Panel
+              <p className="text-[10px] text-gray-500 uppercase tracking-widest font-semibold mb-2">Social</p>
+              <div className="flex gap-2">
+                {[
+                  { href: data.socials.instagram, icon: 'fab fa-instagram' },
+                  { href: data.socials.linkedin, icon: 'fab fa-linkedin' },
+                  { href: data.socials.youtube, icon: 'fab fa-youtube' },
+                ].map(({ href, icon }) => (
+                  <a key={icon} href={href} target="_blank" rel="noreferrer"
+                    className="w-9 h-9 glass rounded-full flex items-center justify-center text-gray-400 hover:text-orange-400 hover:border-orange-500/40 transition-all text-sm">
+                    <i className={icon} />
+                  </a>
+                ))}
+              </div>
+            </div>
+
+            {/* ── Admin Panel ── */}
+            <div className="px-5 py-3 border-t border-white/5">
+              <a href="/admin" onClick={() => setMobileOpen(false)}
+                className="flex items-center gap-2 text-xs text-gray-500 hover:text-orange-400 transition-colors py-1">
+                <i className="fas fa-lock" />
+                <span>Admin Panel</span>
               </a>
             </div>
           </div>

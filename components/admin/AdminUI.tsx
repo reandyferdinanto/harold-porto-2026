@@ -102,12 +102,24 @@ export function ImageUpload({
     const file = e.target.files?.[0];
     if (!file) return;
     setUploading(true);
-    const fd = new FormData();
-    fd.append('file', file);
-    const res = await fetch('/api/upload', { method: 'POST', body: fd });
-    const json = await res.json();
-    if (json.url) onUploaded(json.url);
-    setUploading(false);
+    try {
+      const fd = new FormData();
+      fd.append('file', file);
+      const res = await fetch('/api/upload', { method: 'POST', body: fd });
+      if (!res.ok) {
+        throw new Error(await res.text() || 'Upload failed');
+      }
+      const json = await res.json();
+      if (json.url) onUploaded(json.url);
+      else if (json.error) throw new Error(json.error);
+    } catch (err: any) {
+      console.error(err);
+      alert(`Upload failed: ${err.message}`);
+    } finally {
+      setUploading(false);
+      // Reset input so the same file can be selected again
+      e.target.value = '';
+    }
   };
 
   return (
